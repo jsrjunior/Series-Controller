@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 class SeriesController extends Controller
 {
     public function index(){
-        $series = [
-            'Smalville',
-            'Lost',
-            'Agents'
-        ];
+        $series = Serie::all();
         return view('series.index', compact('series'));
     }
 
@@ -21,8 +17,7 @@ class SeriesController extends Controller
     }
 
     public function store(Request $request){
-        $serie = new Serie();
-        $serie->nome = $request->nome;
-        $serie->save();
+        $serie = Serie::create($request->all());
+        echo "Série com id {$serie->id} criada: {$serie->nome}";
     }
 }
