@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', 'SeriesController@index');
-Route::get('/create', 'SeriesController@create');
-Route::post('/create', 'SeriesController@store');
+//Methods for get values
+Route::get('//serie/', 'SeriesController@index')->name('serie.index');
+Route::get('/serie/create', 'SeriesController@create')->name('serie.cadastrar');
+
+//Methods for add values
+Route::post('/serie/create', 'SeriesController@store')->name('serie.salvar');
+
+//Methods for removing values
+Route::delete('/serie/{id}', 'SeriesController@destroy')->name('serie.remove');

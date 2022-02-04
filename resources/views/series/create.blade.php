@@ -5,7 +5,7 @@
 @endsection
         
 @section('conteudo')
-    <form method="POST">
+    <form method="POST" action="{{ route('serie.cadastrar') }}">
         @csrf
         <div class="form-group">
             <label for="nome">Nome</label>
