@@ -29,6 +29,17 @@
             <h1>@yield('cabecalho')</h1>
         </div>
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="list-group">
+                @foreach ($errors->all() as $error)
+                    <li class="list-group">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
         @yield('conteudo')
     </div>
 </body>
