@@ -24,7 +24,8 @@ class SeriesFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => 'required|min:2'
+            'nome' => 'required',
+            'nome' => 'min:2'
         ];
     }
 

@@ -20,8 +20,18 @@ class SeriesController extends Controller
     }
 
     public function store(SeriesFormRequest $request){
-        $request->validate();
-        $serie = Serie::create($request->all());
+        
+        $serie = Serie::create(['nome' => $request->nome]);
+        $qtdTemporadas = $request->qtd_temporadas;
+        for ($i=1; $i <= $qtdTemporadas; $i++) 
+        { 
+            $temporada = $serie->temporadas()->create(['numero' => $i]);
+            for ($j=1; $j <= $request->qtr_episodios; $j++) 
+            { 
+                $episodios = $temporada->episodios()->create(['numero' => $j]);
+            }
+        }
+
         $request
             ->session()
             ->flash('mensagem', "Série {$serie->id} criada com sucesso {$serie->nome}"); //Metodo que insere mensagem na sessão que permanece por apenas um requisição

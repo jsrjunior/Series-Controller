@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CriarTabelaSeries extends Migration
+class CreateEspisodiosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CriarTabelaSeries extends Migration
      */
     public function up()
     {
-        Schema::create('series', function(Blueprint $table){
+        Schema::create('espisodios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nome');
-            //$table->timestamps(); -> Quando estiver com esse campo, ao criar tabela gera coluna de data de criação e de atualização
+            $table->integer('numero');
+            $table->integer('temporada_id')->unsigned();;
+            $table->foreign('temporada_id')->references('id')->on('temporadas');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class CriarTabelaSeries extends Migration
      */
     public function down()
     {
-        Schema::drop('series');
+        Schema::dropIfExists('espisodios');
     }
 }
