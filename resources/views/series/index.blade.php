@@ -1,6 +1,6 @@
 <style>
     .list-group-series{
-        width: 350px;
+        width: 50%;
     }
     .item-serie{
         display: flex;
@@ -34,15 +34,21 @@
         <ul class="list-group">
             @foreach ($series as $serie)
                 <li class="list-group-item">
-                    <div class="item-serie">
-                        <div>
+                    <div class="row">
+                        <div class="col col-8">
                             {{$serie->nome}}
                         </div>
-                        <div>
+
+                        <div class="col col-4" style="display: flex; justify-content: flex-end; align-items: center;">
+                           
+                            <a href="#" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+
                             <form action="{{ route('serie.remove', $serie) }}" method="post" onsubmit="return confirm('Tem certeza?');" class="form-remove">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                                <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </div>
                     </div>                    

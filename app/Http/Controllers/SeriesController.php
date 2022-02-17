@@ -34,7 +34,7 @@ class SeriesController extends Controller
 
         $request
             ->session()
-            ->flash('mensagem', "Série {$serie->id} criada com sucesso {$serie->nome}"); //Metodo que insere mensagem na sessão que permanece por apenas um requisição
+            ->flash('mensagem', "Série {$serie->nome} adicionada com sucesso "); //Metodo que insere mensagem na sessão que permanece por apenas um requisição
         return redirect()->route('serie.index');
     }
 
