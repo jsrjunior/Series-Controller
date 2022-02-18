@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesFormRequest;
 use App\Serie;
+use App\Services\SeriesCreator;
 use Illuminate\Http\Request;
 
 class SeriesController extends Controller
@@ -19,19 +20,9 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SeriesFormRequest $request){
+    public function store(SeriesFormRequest $request, SeriesCreator $serieCreator){
         
-        $serie = Serie::create(['nome' => $request->nome]);
-        $qtdTemporadas = $request->qtd_temporadas;
-        for ($i=1; $i <= $qtdTemporadas; $i++) 
-        { 
-            $temporada = $serie->temporadas()->create(['numero' => $i]);
-            for ($j=1; $j <= $request->qtr_episodios; $j++) 
-            { 
-                $episodios = $temporada->episodios()->create(['numero' => $j]);
-            }
-        }
-
+        $serie = $serieCreator->CreateSerie($request->nome, $request->qtd_temporadas, $request->qtd_episodios);
         $request
             ->session()
             ->flash('mensagem', "Série {$serie->nome} adicionada com sucesso "); //Metodo que insere mensagem na sessão que permanece por apenas um requisição

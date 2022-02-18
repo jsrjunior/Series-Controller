@@ -41,7 +41,7 @@
 
                         <div class="col col-4" style="display: flex; justify-content: flex-end; align-items: center;">
                            
-                            <a href="#" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
+                            <a href="/serie/{{$serie->id}}/temporadas" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
 

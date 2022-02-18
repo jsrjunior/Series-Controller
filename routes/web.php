@@ -14,6 +14,7 @@
 //Methods for get values
 Route::get('//serie/', 'SeriesController@index')->name('serie.index');
 Route::get('/serie/create', 'SeriesController@create')->name('serie.cadastrar');
+Route::get('/serie/{serieID}/temporadas', 'TemporadasController@index');
 
 //Methods for add values
 Route::post('/serie/create', 'SeriesController@store')->name('serie.salvar');
