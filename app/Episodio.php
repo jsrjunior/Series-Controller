@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Espisodio extends Model
+class Episodio extends Model
 {
     protected $fillable = ['numero'];
     public $timestamps = false;

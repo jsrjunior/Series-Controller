@@ -25,7 +25,9 @@ class SeriesFormRequest extends FormRequest
     {
         return [
             'nome' => 'required',
-            'nome' => 'min:2'
+            'nome' => 'min:2',
+            'qtd_temporadas' => 'required',
+            'qtd_episodios' => 'required',
         ];
     }
 
