@@ -12,7 +12,6 @@ class SeriesController extends Controller
 {
     public function index(Request $request){
         $series = Serie::query()->orderBy('nome')->get();
-        //$series = Serie::all(['nome'])->where('nome','=', 'Teste');
         $mensagem = $request->session()->get('mensagem');
         return view('series.index', compact('series', 'mensagem'));
     }

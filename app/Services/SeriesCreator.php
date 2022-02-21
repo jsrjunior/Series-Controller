@@ -1,5 +1,6 @@
 <?php
-    namespace App\Services;
+
+namespace App\Services;
 
 use App\Serie;
 use App\Temporada;
@@ -7,12 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class SeriesCreator{
     public function createSerie(string $nome, int $qtdTemporadas, int $epTemporada): Serie
-    {
-        $serie = new Serie();    
-        DB::transaction(function () use(&$serie, $nome, $qtdTemporadas, $epTemporada) {
-            $serie = Serie::create(['nome' => $nome]);
-            $this->createTemporada($serie, $qtdTemporadas, $epTemporada);
-        });
+    {  
+        DB::beginTransaction();
+        $serie = Serie::create(['nome' => $nome]);
+        $this->createTemporada($serie, $qtdTemporadas, $epTemporada);
+        DB::commit();
         return $serie;     
     }
     
