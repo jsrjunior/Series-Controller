@@ -1,6 +1,6 @@
 <style>
     .list-group-series{
-        width: 50%;
+        width: 100%;
     }
     .item-serie{
         display: flex;
@@ -36,11 +36,23 @@
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col col-8">
-                            {{$serie->nome}}
+                            <span id="nome-serie-{{ $serie->id }}">{{$serie->nome}}</span>
+                            <div class="input-group w-70" hidden id="input-nome-serie-{{ $serie->id }}">
+                                <input type="text" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" onclick="editarSerie({{ $serie->id }})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    @csrf
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col col-4" style="display: flex; justify-content: flex-end; align-items: center;">
-                           
+                            <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})" style="width: 30px; margin-right: 2px;">
+                                <i class="fas fa-edit"></i>
+                            </button>
+
                             <a href="/serie/{{$serie->id}}/temporadas" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
@@ -57,4 +69,18 @@
         </ul>
     </div>
 @endsection
+
+<script>
+    function toggleInput(serieId) {
+    const nomeSerieEl = document.getElementById(`nome-serie-${serieId}`);
+    const inputSerieEl = document.getElementById(`input-nome-serie-${serieId}`);
+    if (nomeSerieEl.hasAttribute('hidden')) {
+        nomeSerieEl.removeAttribute('hidden');
+        inputSerieEl.hidden = true;
+    } else {
+        inputSerieEl.removeAttribute('hidden');
+        nomeSerieEl.hidden = true;
+    }
+}
+</script> 
 
