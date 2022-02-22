@@ -18,6 +18,7 @@ Route::get('/serie/{serieID}/temporadas', 'TemporadasController@index');
 
 //Methods for add values
 Route::post('/serie/create', 'SeriesController@store')->name('serie.salvar');
+Route::post('/serie/{id}/editarSerie', 'SeriesController@editarSerie');
 
 //Methods for removing values
 Route::delete('/serie/{id}', 'SeriesController@destroy')->name('serie.remove');

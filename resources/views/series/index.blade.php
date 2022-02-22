@@ -38,9 +38,9 @@
                         <div class="col col-8">
                             <span id="nome-serie-{{ $serie->id }}">{{$serie->nome}}</span>
                             <div class="input-group w-70" hidden id="input-nome-serie-{{ $serie->id }}">
-                                <input type="text" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
+                                <input type="text" id="series-name-{{$serie->id}}" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary" onclick="editarSerie({{ $serie->id }})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
+                                    <button class="btn btn-primary" onclick="editarSerie({{$serie->id}})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
                                         <i class="fas fa-check"></i>
                                     </button>
                                     @csrf
@@ -72,15 +72,32 @@
 
 <script>
     function toggleInput(serieId) {
-    const nomeSerieEl = document.getElementById(`nome-serie-${serieId}`);
-    const inputSerieEl = document.getElementById(`input-nome-serie-${serieId}`);
-    if (nomeSerieEl.hasAttribute('hidden')) {
-        nomeSerieEl.removeAttribute('hidden');
-        inputSerieEl.hidden = true;
-    } else {
-        inputSerieEl.removeAttribute('hidden');
-        nomeSerieEl.hidden = true;
+        const nomeSerieEl = document.getElementById(`nome-serie-${serieId}`);
+        const inputSerieEl = document.getElementById(`input-nome-serie-${serieId}`);
+        if (nomeSerieEl.hasAttribute('hidden')) {
+            nomeSerieEl.removeAttribute('hidden');
+            inputSerieEl.hidden = true;
+        } else {
+            inputSerieEl.removeAttribute('hidden');
+            nomeSerieEl.hidden = true;
+        }
     }
-}
+
+    function editarSerie(serieId){
+        let forData = new FormData();
+        const nome = document.getElementById(`series-name-${serieId}`).value;
+        const token = document.querySelector('input[name="_token"]').value;
+        forData.append('nome',nome);
+        forData.append('_token',token);
+
+        const url = `/serie/${serieId}/editarSerie`;
+        fetch(url, {
+            body: forData,
+            method: 'POST'
+        }).then(()=> {
+            toggleInput(serieId);
+            document.getElementById(`nome-serie-${serieId}`).textContent = nome;
+        });
+    }
 </script> 
 
