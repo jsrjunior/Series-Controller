@@ -23,7 +23,7 @@ class SeriesController extends Controller
     }
 
     public function store(SeriesFormRequest $request, SeriesCreator $serieCreator)
-    {    
+    {
         $serie = $serieCreator->createSerie($request->nome, $request->qtd_temporadas, $request->qtd_episodios);
         $request
             ->session()
@@ -42,6 +42,8 @@ class SeriesController extends Controller
 
     public function editarSerie(int $id, Request $request)
     {
+        $serie = new Serie();
+
         $serie = Serie::find($id);
         $serie->nome = $request->nome;
         $serie->save();
