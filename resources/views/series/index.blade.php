@@ -18,7 +18,7 @@
 @section('cabecalho')
     Séries
 @endsection
-        
+
 @section('conteudo')
 
 @if(!@empty($mensagem))
@@ -28,7 +28,9 @@
 @endif
 
 
-    <a href="{{route('serie.cadastrar')}}" class="btn btn-dark mb-4">Adicionar</a>
+    @auth
+        <a href="{{route('series.cadastrar')}}" class="btn btn-dark mb-4">Adicionar</a>
+    @endauth
 
     <div class="list-group-series">
         <ul class="list-group">
@@ -39,31 +41,37 @@
                             <span id="nome-serie-{{ $serie->id }}">{{$serie->nome}}</span>
                             <div class="input-group w-70" hidden id="input-nome-serie-{{ $serie->id }}">
                                 <input type="text" id="series-name-{{$serie->id}}" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" onclick="editarSerie({{$serie->id}})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                    @csrf
+                               @auth
+                               <div class="input-group-append">
+                                <button class="btn btn-primary" onclick="editarSerie({{$serie->id}})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                @csrf
                                 </div>
+                               @endauth
                             </div>
                         </div>
 
                         <div class="col col-4" style="display: flex; justify-content: flex-end; align-items: center;">
+                            @auth
                             <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})" style="width: 30px; margin-right: 2px;">
                                 <i class="fas fa-edit"></i>
                             </button>
+                            @endauth
 
-                            <a href="/serie/{{$serie->id}}/temporadas" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
+                            <a href="/series/{{$serie->id}}/temporadas" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
                                 <i class="fas fa-external-link-alt"></i>
                             </a>
 
-                            <form action="{{ route('serie.remove', $serie) }}" method="post" onsubmit="return confirm('Tem certeza?');" class="form-remove">
+                            @auth
+                            <form action="{{ route('series.remove', $serie) }}" method="post" onsubmit="return confirm('Tem certeza?');" class="form-remove">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
                             </form>
+                            @endauth
                         </div>
-                    </div>                    
+                    </div>
                 </li>
             @endforeach
         </ul>
@@ -90,7 +98,7 @@
         forData.append('nome',nome);
         forData.append('_token',token);
 
-        const url = `/serie/${serieId}/editarSerie`;
+        const url = `/series/${serieId}/editarSerie`;
         fetch(url, {
             body: forData,
             method: 'POST'
@@ -99,5 +107,5 @@
             document.getElementById(`nome-serie-${serieId}`).textContent = nome;
         });
     }
-</script> 
+</script>
 

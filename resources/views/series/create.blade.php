@@ -3,9 +3,9 @@
 @section('cabecalho')
     Adicionar Séries
 @endsection
-        
+
 @section('conteudo')
-    <form method="POST" action="{{ route('serie.cadastrar') }}">
+    <form method="POST" action="{{ route('series.cadastrar') }}">
         @csrf
         <div class="row">
             <div class="col col-8">

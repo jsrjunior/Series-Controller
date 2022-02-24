@@ -20,6 +20,6 @@ class EntrarController extends Controller
                     ->withErrors('Usuario e/ou senha incorretos');
         }
 
-        return redirect()->route('serie.index');
+        return redirect()->route('series.index');
     }
 }

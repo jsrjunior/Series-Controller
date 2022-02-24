@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         $series = Serie::query()->orderBy('nome')->get();
@@ -34,7 +29,7 @@ class SeriesController extends Controller
         $request
             ->session()
             ->flash('mensagem', "Série {$serie->nome} adicionada com sucesso "); //Metodo que insere mensagem na sessão que permanece por apenas um requisição
-        return redirect()->route('serie.index');
+        return redirect()->route('series.index');
     }
 
     public function destroy(Request $request, SeriesDelete $serie)
@@ -43,7 +38,7 @@ class SeriesController extends Controller
         $request
             ->session()
             ->flash('mensagem', "Série $nome removida");
-        return redirect()->route('serie.index');
+        return redirect()->route('series.index');
     }
 
     public function editarSerie(int $id, Request $request)

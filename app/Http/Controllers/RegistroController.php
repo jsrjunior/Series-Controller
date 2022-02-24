@@ -21,6 +21,6 @@ class RegistroController extends Controller
         $user = User::create($data);
         Auth::login($user);
 
-        return redirect().route('serie.index');
+        return redirect().route('series.index');
     }
 }
