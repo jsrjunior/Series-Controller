@@ -12,6 +12,8 @@
 */
 
 //Methods for get values
+
+
 Route::get('//serie/', 'SeriesController@index')->name('serie.index');
 Route::get('/serie/create', 'SeriesController@create')->name('serie.cadastrar');
 
@@ -31,3 +33,9 @@ Route::delete('/serie/{id}', 'SeriesController@destroy')->name('serie.remove');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/entrar', 'EntrarController@index');
+Route::post('/entrar', 'EntrarController@entrar');
+
+Route::get('/registrar', 'RegistroController@create');
+Route::post('/registrar', 'RegistroController@store');

@@ -21,7 +21,6 @@ class EpisodiosController extends Controller
         foreach ($temporada->episodios as &$episodio) {
             $episodio->assistido = in_array($episodio->id, $episodios);
         }
-
         $request
             ->session()
             ->flash('mensagem', "Epiśodios assistidos salvos");
