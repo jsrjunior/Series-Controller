@@ -13,6 +13,7 @@
 
 //Methods for get values
 
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/series', 'SeriesController@index')->name('series.index');
 Route::get('/series/create', 'SeriesController@create')->name('series.cadastrar')->middleware('aut');;
@@ -27,7 +28,7 @@ Route::get('/temporadas/{temporada}/episodios', 'EpisodiosController@index');
 
 Route::post('/temporadas/{temporada}/episodios/assistir', 'EpisodiosController@assistir')->middleware('aut');;
 
-aut::routes();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
