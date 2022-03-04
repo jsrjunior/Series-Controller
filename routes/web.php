@@ -41,6 +41,6 @@ Route::get('/registrar', 'RegistroController@create');
 Route::post('/registrar', 'RegistroController@store');
 
 Route::get('/sair', function () {
-    aut::logout();
+    Auth::logout();
     return redirect('/entrar');
 });
