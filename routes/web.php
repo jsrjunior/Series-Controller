@@ -44,3 +44,23 @@ Route::get('/sair', function () {
     Auth::logout();
     return redirect('/entrar');
 });
+
+Route::get('/visualizando-email', function () {
+    return new \App\Mail\NovaSerie(
+        'Arrow', 5, 20
+    );
+});
+
+Route::get('/enviando-email', function () {
+    $email = new \App\Mail\NovaSerie(
+        'Arrow', 5, 20
+    );
+    $user = (object)[
+        'email' => 'd0870870cf-a61a2a@inbox.mailtrap.io',
+        'name' => 'junior'
+    ];
+    $email->subject('Nova Serie Adicionada');
+
+    \Illuminate\Support\Facades\Mail::to($user)->send($email);
+    return 'enviado';
+});
