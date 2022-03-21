@@ -14,13 +14,13 @@ class RegistroController extends Controller
         return view('registro.create');
     }
 
-    public function sotre(Request $request)
+    public function store(Request $request)
     {
         $data = $request->except('_token');
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         Auth::login($user);
 
-        return redirect().route('series.index');
+        return redirect()->route('series.index');
     }
 }

@@ -3,6 +3,6 @@
 # Nova Serie
 ### Nome: {{$nome}} 
 ### Quantidade Temporadas: {{$qtdTemporadas}}
-### Quantidade Episodios: {{$qtdEpisodios}}
+### Quantidade Episodios Por Temporada: {{$qtdEpisodios}}
 
 @endcomponent
