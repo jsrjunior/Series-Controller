@@ -8,7 +8,8 @@ class Serie extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'nome'
+        'nome',
+        'capa'
     ];
     public function temporadas()
     {

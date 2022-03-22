@@ -1,7 +1,47 @@
 <style>
+
     .list-group-series{
         width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+        align-content: flex-start;
     }
+
+    .card-item{
+        box-sizing: border-box;
+        margin: 1.5rem;
+        width: 320px;
+        height: 400px;
+    }
+
+    .card-container{
+        background-color: #e9e5e2;
+    }
+
+    .card-tittle{
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: bolder;
+        font-size: larger;      
+    }
+
+    .card-img{
+        padding: 10px 20px;
+    }
+
+    .card-info{
+        height: 10%;
+        justify-content: center;
+    }
+
+    .info-btns{
+        display: flex;
+        justify-content: center;
+    }
+ 
+
     .item-serie{
         display: flex;
         flex-direction: row;
@@ -33,48 +73,56 @@
     @endauth
 
     <div class="list-group-series">
-        <ul class="list-group">
             @foreach ($series as $serie)
-                <li class="list-group-item">
-                    <div class="row">
-                        <div class="col col-8">
-                            <span id="nome-serie-{{ $serie->id }}">{{$serie->nome}}</span>
-                            <div class="input-group w-70" hidden id="input-nome-serie-{{ $serie->id }}">
-                                <input type="text" id="series-name-{{$serie->id}}" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
-                               @auth
-                               <div class="input-group-append">
-                                <button class="btn btn-primary" onclick="editarSerie({{$serie->id}})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                                @csrf
+                    <div class="card-item">
+                        <div class="card-container">
+                            <div class="card-tittle">
+                                <span id="nome-serie-{{ $serie->id }}">{{$serie->nome}}</span>
+                                <div class="input-group w-70" hidden id="input-nome-serie-{{ $serie->id }}">
+                                    <input type="text" id="series-name-{{$serie->id}}" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
+                                   @auth
+                                   <div class="input-group-append">
+                                    <button class="btn btn-primary" onclick="editarSerie({{$serie->id}})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    @csrf
+                                    </div>
+                                   @endauth
                                 </div>
-                               @endauth
+                            
+                            </div>
+                                
+                            <div class="card-img">
+                                <img src="http://127.0.0.1:8000/storage/serie/sem-imagem.jpg" class="img-thumbnail img-capa">
+                            </div>
+
+                            <div class="card-info">
+
+                                <div class="info-btns">
+                                    @auth
+                                    <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})" style="width: 30px; margin-right: 2px;">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    @endauth
+
+                                    <a href="/series/{{$serie->id}}/temporadas" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+
+                                    @auth
+                                    <form action="{{ route('series.remove', $serie) }}" method="post" onsubmit="return confirm('Tem certeza?');" class="form-remove">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                    @endauth
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col col-4" style="display: flex; justify-content: flex-end; align-items: center;">
-                            @auth
-                            <button class="btn btn-info btn-sm mr-1" onclick="toggleInput({{ $serie->id }})" style="width: 30px; margin-right: 2px;">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            @endauth
-
-                            <a href="/series/{{$serie->id}}/temporadas" class="btn btn-info btn-sm" style="width: 30px; margin-right: 2px;">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
-
-                            @auth
-                            <form action="{{ route('series.remove', $serie) }}" method="post" onsubmit="return confirm('Tem certeza?');" class="form-remove">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
-                            </form>
-                            @endauth
-                        </div>
                     </div>
-                </li>
+    
             @endforeach
-        </ul>
+    
     </div>
 @endsection
 
