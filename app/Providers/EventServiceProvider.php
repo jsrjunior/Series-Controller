@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\NovaSerie;
 use App\Listeners\EnviarEmailNovaSerie;
+use App\Listeners\LogNovaSerie;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -21,7 +22,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         NovaSerie::class => [
-            EnviarEmailNovaSerie::class,
+            //EnviarEmailNovaSerie::class,
+            LogNovaSerie::class,
         ],
     ];
 
@@ -33,7 +35,5 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

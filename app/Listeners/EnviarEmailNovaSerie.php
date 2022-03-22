@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 
-class EnviarEmailNovaSerie
+class EnviarEmailNovaSerie implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -29,16 +29,17 @@ class EnviarEmailNovaSerie
      */
     public function handle(NovaSerie $event)
     {
+
         $users = User::all();
         foreach ($users as $index => $user) {
             $mult = $index +1;
             $email = new MailNovaSerie(
-                $event->nome, 
-                $event->qtd_temporadas, 
-                $event->qtd_episodios
+                $event->nomeSerie, 
+                $event->qtdTemporadas, 
+                $event->qtdEpisodios
             );
             //Armazena e-mail na fila de processos
-            $email->subject("Serie $event->nome Adicionada");
+            $email->subject("Serie $event->nomeSerie Adicionada");
             $when = now()->seconds($mult*6);  
             Mail::to($user)->later($when,$email);
         } 
