@@ -4,7 +4,9 @@ namespace App\Services;
 use App\Episodio;
 use App\Serie;
 use App\Temporada;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class SeriesDelete{
     public function deleteSerie(int $serieId): string
@@ -15,6 +17,8 @@ class SeriesDelete{
             $nome = $serie->nome;
             $this->deleteTemporadas($serie);
             $serie->delete();
+            if($serie->capa)
+                Storage::delete($serie->capa);
         });
         return $nome;
     }

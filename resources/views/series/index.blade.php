@@ -4,7 +4,7 @@
         width: 100%;
         display: flex;
         flex-direction: row;
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         justify-content: space-around;
         align-content: flex-start;
     }
@@ -18,17 +18,29 @@
 
     .card-container{
         background-color: #e9e5e2;
+        border-radius: 5px;
     }
 
     .card-tittle{
         text-align: center;
         text-transform: capitalize;
         font-weight: bolder;
-        font-size: larger;      
+        font-size: larger;
+        height: 10%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;   
     }
 
     .card-img{
         padding: 10px 20px;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .card-img img{
+        height: 320px;
     }
 
     .card-info{
@@ -47,6 +59,13 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+    }
+
+    .input-tittle{
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        width: 86%;
     }
 
     .form-remove{
@@ -78,11 +97,11 @@
                         <div class="card-container">
                             <div class="card-tittle">
                                 <span id="nome-serie-{{ $serie->id }}">{{$serie->nome}}</span>
-                                <div class="input-group w-70" hidden id="input-nome-serie-{{ $serie->id }}">
+                                <div class="input-tittle" hidden id="input-nome-serie-{{ $serie->id }}">
                                     <input type="text" id="series-name-{{$serie->id}}" class="form-control" value="{{ $serie->nome }}" style="height: 24px;">
                                    @auth
                                    <div class="input-group-append">
-                                    <button class="btn btn-primary" onclick="editarSerie({{$serie->id}})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
+                                    <button class="btn btn-primary" onclick="editarSerie({{ $serie->id }})" style="width: 30px; height: 24px; margin-left: 10px; display: flex; align-items: center; justify-content: center;">
                                         <i class="fas fa-check"></i>
                                     </button>
                                     @csrf
@@ -93,7 +112,7 @@
                             </div>
                                 
                             <div class="card-img">
-                                <img src="http://127.0.0.1:8000/storage/serie/sem-imagem.jpg" class="img-thumbnail img-capa">
+                                <img src="{{$serie->capa_url}}" class="img-thumbnail img-capa">
                             </div>
 
                             <div class="card-info">
