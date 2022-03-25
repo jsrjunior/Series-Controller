@@ -1,3 +1,11 @@
+<style>
+    #email{
+        width: 40%;
+    }
+    #password{
+        width: 40%;
+    }
+</style>
 @extends('layout')
 
 @section('cabecalho')
@@ -6,6 +14,7 @@
 
 @section('conteudo')
 
+<div class="login-group">
     <form method="post">
         @csrf
         <div class="form-group">
@@ -26,4 +35,5 @@
             Registrar-se
         </a>
     </form>
+</div>
 @endsection

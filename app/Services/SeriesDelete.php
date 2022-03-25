@@ -15,10 +15,11 @@ class SeriesDelete{
         $nome = '';
         DB::transaction(function () use ($serieId, &$nome) {
             $serie = Serie::find($serieId);
+            $serieObj = (object) $serie->toArray();
             $nome = $serie->nome;
             $this->deleteTemporadas($serie);
             $serie->delete();
-            $evento = new SerieApagar($serie);
+            $evento = new SerieApagar($serieObj );
             event($evento);            
         });
         return $nome;

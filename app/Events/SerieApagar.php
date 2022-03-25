@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Serie;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,12 +16,12 @@ class SerieApagar
 
     /**
      * Create a new event instance.
-     *@var Serie
+     *@var object
      * @return void
      */
     public $serie;
 
-    public function __construct(Serie $serie)
+    public function __construct(object $serie)
     {
         $this->serie = $serie;
     }

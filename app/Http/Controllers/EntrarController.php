@@ -22,10 +22,5 @@ class EntrarController extends Controller
 
         return redirect()->route('series.index');
     }
-
-    public function sair(Request $request){
-        Auth::logout();
-        return redirect('/entrar');
-    }
     
 }
