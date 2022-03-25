@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Episodio;
+use App\Events\SerieApagar;
 use App\Serie;
 use App\Temporada;
 use Illuminate\Contracts\Cache\Store;
@@ -17,8 +18,8 @@ class SeriesDelete{
             $nome = $serie->nome;
             $this->deleteTemporadas($serie);
             $serie->delete();
-            if($serie->capa)
-                Storage::delete($serie->capa);
+            $evento = new SerieApagar($serie);
+            event($evento);            
         });
         return $nome;
     }

@@ -68,6 +68,11 @@
         width: 86%;
     }
 
+    .form-control{
+        text-align: center;
+        font-weight: 600;
+    }
+
     .form-remove{
         display: contents;
     }
@@ -86,10 +91,6 @@
     </div>
 @endif
 
-
-    @auth
-        <a href="{{route('series.cadastrar')}}" class="btn btn-dark mb-4">Adicionar</a>
-    @endauth
 
     <div class="list-group-series">
             @foreach ($series as $serie)

@@ -3,12 +3,11 @@
         height: 150px;
         display: flex;
         justify-content: center;
+        align-items: center;
         background-color: darkgray;
-        margin-bottom: 20px;
     }
 
     #cabecalho h1{
-        position: relative;
         top: 25%;
     }
 
@@ -16,12 +15,31 @@
         background-color: #a9a9a9;
         display: flex;
         justify-content: space-between;
-        margin: 0 0 1rem 0;
+        margin: 0 0 1.5rem 0;
     }
     #menu-bar a{
         text-decoration: none;
         margin: 0 2rem 0 2rem;
     }
+    .navegacao{
+        display: flex;
+        font-weight: 300;
+    }
+    .navegacao a{
+        color: black;
+    }
+    .navegacao a:hover{
+        color: black;
+        font-weight: 600;
+    }
+    .control-acess{
+        display: flex;
+        font-weight: 300;
+    }
+    .control-acess a:hover{
+        font-weight: 600;
+    }
+    
 </style>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -36,29 +54,38 @@
 </head>
 <body>
     <nav id="menu-bar" class="navbar navbar-expand-lg">
-        <a class="navbar navbar-expand-lg" href="{{ route('series.index') }}">Home</a>
-        @auth
-            <a href="/sair" class="text-danger">Sair</a>
-        @endauth
-        @guest
-        <a href="/entrar" class="text-danger">Entrar</a>
-        @endguest
+        <div class="navegacao">
+            <a class="navbar navbar-expand-lg" href="{{ route('series.index') }}">Home</a>
+            @auth
+                <a href="{{route('series.cadastrar')}}" class="navbar navbar-expand-lg">Adicionar</a>
+            @endauth
+        </div>
+        
+        <div class="control-acess">
+            @auth
+                <a href="/sair" class="text-danger">Sair</a>
+            @endauth
+            @guest
+                <a href="/entrar" class="text-danger">Entrar</a>
+            @endguest
+        </div>
+        
 
    </nav>
     <div class="container">
-        <div id="cabecalho" class="jumbotron">
+        <div id="cabecalho" class="">
             <h1>@yield('cabecalho')</h1>
         </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="list-group">
-                @foreach ($errors->all() as $error)
-                    <li class="list-group">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="list-group">
+                    @foreach ($errors->all() as $error)
+                        <li class="list-group">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
 
         @yield('conteudo')
