@@ -20,7 +20,7 @@ class SeriesDelete{
             $this->deleteTemporadas($serie);
             $serie->delete();
             $evento = new SerieApagar($serieObj );
-            event($evento);            
+            Exclu          
         });
         return $nome;
     }
